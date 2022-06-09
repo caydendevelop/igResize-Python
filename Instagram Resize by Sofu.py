@@ -55,8 +55,9 @@ def entire_directory():
     if not is_exist_output_directory:
         os.makedirs(directory_path + "/output/")
 
+    counter = 0
     for i in chosen_directory:
-        counter = 0
+        
         if not i.endswith('.jpg') and not i.endswith('.jpeg') and not i.endswith('.png') and not i.endswith('.dng'):
             continue
 
@@ -66,7 +67,7 @@ def entire_directory():
         im_new.save(output_path_and_filename, quality=100)
         counter += 1
 
-    MyApp.show_msg("", "Resize成功! 合共" + counter + "張圖片")
+    MyApp.show_msg("", "Resize成功! 合共" + str(counter) + "張圖片")
 
 
 def single_file():
@@ -96,6 +97,7 @@ def close():
 
 
 def color_selector(color):
+    global padding_color
     if (color == "white"):
         padding_color = (255, 255, 255)
     elif (color == "grey"):
@@ -117,11 +119,11 @@ class MyApp(Tk):
         frame2 = Frame(self)
 
         button_white = Button(frame1, text='白邊', command=lambda: color_selector("white"))
-        button_white.grid(row=0, column=0)
+        button_white.grid(row=0, column=0, ipadx=10, padx=10)
         button_grey = Button(frame1, text='灰邊', command=lambda: color_selector("grey"))
-        button_grey.grid(row=0, column=1)
+        button_grey.grid(row=0, column=1, ipadx=10, padx=10)
         button_black = Button(frame1, text='黑邊', command=lambda: color_selector("black"))
-        button_black.grid(row=0, column=2)
+        button_black.grid(row=0, column=2, ipadx=10, padx=10)
 
         button1 = Button(frame2, text='選擇整個資料夾', command=entire_directory, padx=50, pady=15)
         button1.pack(pady=10)
@@ -130,8 +132,8 @@ class MyApp(Tk):
         button3 = Button(frame2, text='結束', command=close, padx=80, pady=15)
         button3.pack(pady=10)
 
-        frame1.pack(padx=5,pady=5)
-        frame2.pack(padx=5,pady=5)
+        frame1.pack(padx=5,pady=10)
+        frame2.pack(padx=5,pady=0)
 
     def show_msg(title, msg):
         tkinter.messagebox.showinfo(title, msg)
