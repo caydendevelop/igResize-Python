@@ -11,6 +11,9 @@ from tkinter.filedialog import askopenfilename
 from ntpath import basename as get_filename
 from ntpath import dirname as get_dirname
 
+global padding_color  # global color
+padding_color = (255, 255, 255)
+
 
 def not_4over5(width, height):
     ratio = width / height
@@ -23,12 +26,12 @@ def is_vertical(width, height):
 
 def add_margin(pil_img):
     width, height = pil_img.size
-    if(is_vertical(width, height)):
-        if(not_4over5(width, height)):
+    if is_vertical(width, height):
+        if not_4over5(width, height):
             left = right = int((height / 5 * 4 - width) / 2)
             new_width = width + left + right
             result = pil_image.new(
-                pil_img.mode, (new_width, height), (255, 255, 255))
+                pil_img.mode, (new_width, height), padding_color)
             result.paste(pil_img, (left, 0))
             return result
         else:
@@ -38,37 +41,38 @@ def add_margin(pil_img):
 
 
 def entire_directory():
-
     directory_path = askdirectory()
 
-    if (directory_path == ""):
-        print("not chosen")
+    if directory_path == "":
         return
 
     chosen_directory = os.listdir(directory_path)
+    if len(chosen_directory) == 0:
+        MyApp.show_msg("選擇的資料夾沒有檔案")
+
     is_exist_output_directory = os.path.isdir(directory_path + "/output/")
 
-    if(not is_exist_output_directory):
+    if not is_exist_output_directory:
         os.makedirs(directory_path + "/output/")
 
     for i in chosen_directory:
-        if (not i.endswith('.jpg') and not i.endswith('.jpeg') and not i.endswith('.png') and not i.endswith('.dng')):
+        counter = 0
+        if not i.endswith('.jpg') and not i.endswith('.jpeg') and not i.endswith('.png') and not i.endswith('.dng'):
             continue
+
         im = pil_image.open(directory_path + "/" + i)
         im_new = add_margin(im)
-
         output_path_and_filename = directory_path + "/output/" + i
         im_new.save(output_path_and_filename, quality=100)
-        
-    MyApp.show_success_msg("" , "Resize成功!")
+        counter += 1
+
+    MyApp.show_msg("", "Resize成功! 合共" + counter + "張圖片")
+
 
 def single_file():
-
-    # show an "Open" dialog box and return the path to the selected file
     file_path = askopenfilename()
 
-    if(file_path == ""):
-        print("not chosen")
+    if file_path == "":
         return
 
     im = pil_image.open(file_path)
@@ -78,17 +82,27 @@ def single_file():
 
     is_exist_output_directory = os.path.isdir(dirname + "/output/")
 
-    if(not is_exist_output_directory):
+    if not is_exist_output_directory:
         os.makedirs(dirname + "/output/")
 
     output_path_and_filename = dirname + "/output/" + filename
     im_new.save(output_path_and_filename, quality=100)
-    MyApp.show_success_msg("" , "Resize成功!")
+    MyApp.show_msg("", "Resize成功!")
+
 
 # Define a function to close the window
 def close():
     quit()
-   
+
+
+def color_selector(color):
+    if (color == "white"):
+        padding_color = (255, 255, 255)
+    elif (color == "grey"):
+        padding_color = (127, 127, 127)
+    elif (color == "black"):
+        padding_color = (0, 0, 0)
+
 
 class MyApp(Tk):
     def __init__(self):
@@ -97,7 +111,15 @@ class MyApp(Tk):
 
     def initUI(self):
         self.title('Instagram Resize by Sofu')
-        self.geometry('320x220')
+        self.geometry('320x260')
+
+        button_white = Button(self, text='白邊', command=lambda: color_selector("white"))
+        button_white.grid(row=0, column=0)
+        button_grey = Button(self, text='灰邊', command=lambda: color_selector("grey"))
+        button_grey.grid(row=0, column=1)
+        button_black = Button(self, text='黑邊', command=lambda: color_selector("black"))
+        button_black.grid(row=0, column=2)
+
         button1 = Button(self, text='選擇整個資料夾', command=entire_directory, padx=50, pady=15)
         button1.pack(pady=10)
         button2 = Button(self, text='選擇單張圖片', command=single_file, padx=56, pady=15)
@@ -105,33 +127,12 @@ class MyApp(Tk):
         button3 = Button(self, text='結束', command=close, padx=80, pady=15)
         button3.pack(pady=10)
 
-    def show_success_msg(title, msg):
+    def show_msg(title, msg):
         tkinter.messagebox.showinfo(title, msg)
 
-def gui_component():
-    MyApp().mainloop()
 
 def mainFunc():
-
-    gui_component()
-
-    # option = ""
-    # while(option != "3"):
-
-    #     option = input("""Enter your option: \n1 - Choosing Folder \n2 - Choosing Single Photo \n3 - Exit \n""")
-
-    #     if(option == "3"):
-    #         print("See you~ \n")
-    #         break
-
-    #     # Tk().withdraw()  # we don't want a full GUI, so keep the root window from appearing
-        
-    #     if(option == "1"):
-    #         entire_directory()
-    #         print("Done. Please check the output folder \n")
-    #     if(option == "2"):
-    #         single_file()
-    #         print("Done. Please check folder you chose \n")
+    MyApp().mainloop()
 
 
 if __name__ == '__main__':
