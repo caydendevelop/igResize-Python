@@ -1,5 +1,5 @@
-from ast import And
 import tkinter
+from typing import Hashable
 from PIL import Image as pil_image  # Python Image Library
 from tkinter import *  # Python GUI library
 # Python GUI library to open the macOS finder
@@ -13,7 +13,6 @@ from ntpath import dirname as get_dirname
 
 global padding_color  # global color
 padding_color = (255, 255, 255)
-
 
 def not_4over5(width, height):
     ratio = width / height
@@ -96,52 +95,69 @@ def close():
     quit()
 
 
-def color_selector(color):
-    global padding_color
-    if (color == "white"):
-        padding_color = (255, 255, 255)
-    elif (color == "grey"):
-        padding_color = (127, 127, 127)
-    elif (color == "black"):
-        padding_color = (0, 0, 0)
+
+
 
 
 class MyApp(Tk):
     def __init__(self):
         super().__init__()
-        self.initUI()
-
-    def initUI(self):
         self.title('Instagram Resize by Sofu')
-        self.geometry('320x260')
+        self.geometry('430x360')
+        self.configure(background="#111415", )
 
         frame1 = Frame(self)
         frame2 = Frame(self)
+        frame1.configure(background="#111415")
+        frame2.configure(background="#111415")
 
-        button_white = Button(frame1, text='白邊', command=lambda: color_selector("white"))
-        button_white.grid(row=0, column=0, ipadx=10, padx=10)
-        button_grey = Button(frame1, text='灰邊', command=lambda: color_selector("grey"))
-        button_grey.grid(row=0, column=1, ipadx=10, padx=10)
-        button_black = Button(frame1, text='黑邊', command=lambda: color_selector("black"))
-        button_black.grid(row=0, column=2, ipadx=10, padx=10)
+        self.button_white = Button(frame1, text='白邊', command=self.color_white, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button_white.grid(row=0, column=0, ipadx=8, padx=10)
+        self.button_grey = Button(frame1, text='灰邊', command=self.color_grey, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button_grey.grid(row=0, column=1, ipadx=8, padx=10)
+        self.button_black = Button(frame1, text='黑邊', command=self.color_black, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button_black.grid(row=0, column=2, ipadx=8, padx=10)
 
-        button1 = Button(frame2, text='選擇整個資料夾', command=entire_directory, padx=50, pady=15)
-        button1.pack(pady=10)
-        button2 = Button(frame2, text='選擇單張圖片', command=single_file, padx=56, pady=15)
-        button2.pack(pady=10)
-        button3 = Button(frame2, text='結束', command=close, padx=80, pady=15)
-        button3.pack(pady=10)
+        self.button1 = Button(frame2, text='選擇整個資料夾', command=entire_directory, padx=50, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button1.pack(pady=10)
+        self.button2 = Button(frame2, text='選擇單張圖片', command=single_file, padx=60, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button2.pack(pady=10)
+        self.button3 = Button(frame2, text='結束', command=close, padx=98, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button3.pack(pady=10)
 
-        frame1.pack(padx=5,pady=10)
+        frame1.pack(padx=5,pady=(20,10))
         frame2.pack(padx=5,pady=0)
+
+    def reset_button_color(self):
+        self.button_white.configure(fg="#ffffff", bg="#0a84ff")
+        self.button_grey.configure(fg="#ffffff", bg="#0a84ff")
+        self.button_black.configure(fg="#ffffff", bg="#0a84ff")
+
+    def color_white(self):
+        global padding_color
+        padding_color = (255, 255, 255)
+        self.reset_button_color()
+        self.button_white.configure(fg="#0a84ff", bg="#ffffff")
+
+    def color_grey(self):
+        global padding_color
+        padding_color = (127, 127, 127)
+        self.reset_button_color()
+        self.button_grey.configure(fg="#0a84ff", bg="#ffffff")
+
+    def color_black(self):
+        global padding_color
+        padding_color = (0, 0, 0)
+        self.reset_button_color()
+        self.button_black.configure(fg="#0a84ff", bg="#ffffff")
+        
 
     def show_msg(title, msg):
         tkinter.messagebox.showinfo(title, msg)
 
 
-def mainFunc():
+def main_func():
     MyApp().mainloop()
 
-
 if __name__ == '__main__':
-    mainFunc()
+    main_func()
