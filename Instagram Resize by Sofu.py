@@ -120,8 +120,8 @@ class MyApp(Tk):
     def __init__(self):
         super().__init__()
         self.title('Instagram Resize by Sofu')
-        self.geometry('430x560')
-        self.configure(background="#111415", )
+        self.geometry('430x660')
+        self.configure(background="#111415")
 
         frame1 = Frame(self)
         frame2 = Frame(self)
@@ -137,13 +137,13 @@ class MyApp(Tk):
 
         self.button1 = Button(frame2, text='整個資料夾 (直+橫)', command=lambda: entire_directory('both'), padx=34, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
         self.button1.pack(pady=10)
-        self.button2 = Button(frame2, text='單張圖片 (直/橫)', command=lambda: single_file('both'), padx=44, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button2 = Button(frame2, text='單張圖片 (直/橫)', command=lambda: single_file('both'), padx=52, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
         self.button2.pack(pady=10)
-        self.button3 = Button(frame2, text='整個資料夾 (直)', command=lambda: entire_directory('vertical'), padx=52, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button3 = Button(frame2, text='整個資料夾 (直)', command=lambda: entire_directory('vertical'), padx=58, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
         self.button3.pack(pady=10)
-        self.button4 = Button(frame2, text='單張圖片 (直)', command=lambda: single_file('vertical'), padx=62, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button4 = Button(frame2, text='單張圖片 (直)', command=lambda: single_file('vertical'), padx=72, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
         self.button4.pack(pady=10)
-        self.button5 = Button(frame2, text='結束', command=close, padx=98, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
+        self.button5 = Button(frame2, text='結束', command=close, padx=128, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
         self.button5.pack(pady=10)
 
         frame1.pack(padx=5,pady=(20,10))
