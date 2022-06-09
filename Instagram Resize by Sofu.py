@@ -110,17 +110,11 @@ def single_file(option):
     im_new.save(output_path_and_filename, quality=100)
     MyApp.show_msg("", "Resize成功!")
 
-
-# Define a function to close the window
-def close():
-    quit()
-
-
 class MyApp(Tk):
     def __init__(self):
         super().__init__()
         self.title('Instagram Resize by Sofu')
-        self.geometry('430x660')
+        self.geometry('490x570')
         self.configure(background="#111415")
 
         frame1 = Frame(self)
@@ -128,25 +122,26 @@ class MyApp(Tk):
         frame1.configure(background="#111415")
         frame2.configure(background="#111415")
 
-        self.button_white = Button(frame1, text='白邊', command=self.color_white, font=("Microsoft YaHei", 14), fg="#0a84ff", bg="#ffffff")
-        self.button_white.grid(row=0, column=0, ipadx=8, padx=10)
-        self.button_grey = Button(frame1, text='灰邊', command=self.color_grey, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button_grey.grid(row=0, column=1, ipadx=8, padx=10)
-        self.button_black = Button(frame1, text='黑邊', command=self.color_black, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button_black.grid(row=0, column=2, ipadx=8, padx=10)
+        self.label_color = Label(frame1, text="邊框顏色 :", font=("Microsoft YaHei", 12), fg="#ffffff", bg="#111415")
+        self.label_color.grid(row=0, column=0, ipadx=8)
 
-        self.button1 = Button(frame2, text='整個資料夾 (直+橫)', command=lambda: entire_directory('both'), padx=34, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button1.pack(pady=10)
-        self.button2 = Button(frame2, text='單張圖片 (直/橫)', command=lambda: single_file('both'), padx=52, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button2.pack(pady=10)
-        self.button3 = Button(frame2, text='整個資料夾 (直)', command=lambda: entire_directory('vertical'), padx=58, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button3.pack(pady=10)
-        self.button4 = Button(frame2, text='單張圖片 (直)', command=lambda: single_file('vertical'), padx=72, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button4.pack(pady=10)
-        self.button5 = Button(frame2, text='結束', command=close, padx=128, pady=15, font=("Microsoft YaHei", 14), fg="#ffffff", bg="#0A84FF")
-        self.button5.pack(pady=10)
+        self.button_white = Button(frame1, text='白', command=self.color_white, font=("Microsoft YaHei", 12), fg="#0a84ff", bg="#ffffff")
+        self.button_white.grid(row=0, column=1, ipadx=8, padx=10)
+        self.button_grey = Button(frame1, text='灰', command=self.color_grey, font=("Microsoft YaHei", 12), fg="#ffffff", bg="#0A84FF")
+        self.button_grey.grid(row=0, column=2, ipadx=8, padx=10)
+        self.button_black = Button(frame1, text='黑', command=self.color_black, font=("Microsoft YaHei", 12), fg="#ffffff", bg="#0A84FF")
+        self.button_black.grid(row=0, column=3, ipadx=8, padx=10)
 
-        frame1.pack(padx=5,pady=(20,10))
+        self.button1 = Button(frame2, text='整個資料夾 (直+橫)', command=lambda: entire_directory('both'), padx=36, pady=15, font=("Microsoft YaHei", 12), fg="#ffffff", bg="#0A84FF")
+        self.button1.pack(pady=12)
+        self.button2 = Button(frame2, text='單張圖片 (直/橫)', command=lambda: single_file('both'), padx=52, pady=15, font=("Microsoft YaHei", 12), fg="#ffffff", bg="#0A84FF")
+        self.button2.pack(pady=12)
+        self.button3 = Button(frame2, text='整個資料夾 (直)', command=lambda: entire_directory('vertical'), padx=58, pady=15, font=("Microsoft YaHei", 12), fg="#ffffff", bg="#0A84FF")
+        self.button3.pack(pady=12)
+        self.button4 = Button(frame2, text='單張圖片 (直)', command=lambda: single_file('vertical'), padx=71, pady=15, font=("Microsoft YaHei", 12), fg="#ffffff", bg="#0A84FF")
+        self.button4.pack(pady=12)
+
+        frame1.pack(padx=5,pady=(40,30))
         frame2.pack(padx=5,pady=0)
 
     def reset_button_color(self):
