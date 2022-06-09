@@ -113,19 +113,25 @@ class MyApp(Tk):
         self.title('Instagram Resize by Sofu')
         self.geometry('320x260')
 
-        button_white = Button(self, text='白邊', command=lambda: color_selector("white"))
+        frame1 = Frame(self)
+        frame2 = Frame(self)
+
+        button_white = Button(frame1, text='白邊', command=lambda: color_selector("white"))
         button_white.grid(row=0, column=0)
-        button_grey = Button(self, text='灰邊', command=lambda: color_selector("grey"))
+        button_grey = Button(frame1, text='灰邊', command=lambda: color_selector("grey"))
         button_grey.grid(row=0, column=1)
-        button_black = Button(self, text='黑邊', command=lambda: color_selector("black"))
+        button_black = Button(frame1, text='黑邊', command=lambda: color_selector("black"))
         button_black.grid(row=0, column=2)
 
-        button1 = Button(self, text='選擇整個資料夾', command=entire_directory, padx=50, pady=15)
+        button1 = Button(frame2, text='選擇整個資料夾', command=entire_directory, padx=50, pady=15)
         button1.pack(pady=10)
-        button2 = Button(self, text='選擇單張圖片', command=single_file, padx=56, pady=15)
+        button2 = Button(frame2, text='選擇單張圖片', command=single_file, padx=56, pady=15)
         button2.pack(pady=10)
-        button3 = Button(self, text='結束', command=close, padx=80, pady=15)
+        button3 = Button(frame2, text='結束', command=close, padx=80, pady=15)
         button3.pack(pady=10)
+
+        frame1.pack(padx=5,pady=5)
+        frame2.pack(padx=5,pady=5)
 
     def show_msg(title, msg):
         tkinter.messagebox.showinfo(title, msg)
