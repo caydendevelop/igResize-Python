@@ -127,13 +127,13 @@ class MyApp(Tk):
         self.label_color = Label(frame1, text="邊框顏色 :", font=("Microsoft YaHei", 12), fg="#ffffff", bg="#111415")
         self.label_color.grid(row=0, column=0, ipadx=8)
 
-        self.button_white = Button(frame1, text='白', command=self.color_white, font=("Microsoft YaHei", 12),
+        self.button_white = Button(frame1, text='白', command=lambda: self.color_white(self.button_white), font=("Microsoft YaHei", 12),
                                    fg="#0a84ff", bg="#ffffff")
         self.button_white.grid(row=0, column=1, ipadx=8, padx=10)
-        self.button_grey = Button(frame1, text='灰', command=self.color_grey, font=("Microsoft YaHei", 12), fg="#ffffff",
+        self.button_grey = Button(frame1, text='灰', command=lambda: self.color_white(self.button_grey), font=("Microsoft YaHei", 12), fg="#ffffff",
                                   bg="#0A84FF")
         self.button_grey.grid(row=0, column=2, ipadx=8, padx=10)
-        self.button_black = Button(frame1, text='黑', command=self.color_black, font=("Microsoft YaHei", 12),
+        self.button_black = Button(frame1, text='黑', command=lambda: self.color_white(self.button_black), font=("Microsoft YaHei", 12),
                                    fg="#ffffff", bg="#0A84FF")
         self.button_black.grid(row=0, column=3, ipadx=8, padx=10)
 
@@ -158,20 +158,20 @@ class MyApp(Tk):
         self.button_grey.configure(fg="#ffffff", bg="#0a84ff")
         self.button_black.configure(fg="#ffffff", bg="#0a84ff")
 
-    def color_handler(self, color):
+    def color_handler(self, button, color):
         global padding_color
         padding_color = color
         self.reset_button_color()
-        self.button_white.configure(fg="#0a84ff", bg="#ffffff")
+        button.configure(fg="#0a84ff", bg="#ffffff")
 
-    def color_white(self):
-        self.color_handler(self, (255, 255, 255))
+    def color_white(self, button):
+        self.color_handler(button, (255, 255, 255))
 
-    def color_grey(self):
-        self.color_handler(self, (127, 127, 127))
+    def color_grey(self, button):
+        self.color_handler(button, (127, 127, 127))
 
-    def color_black(self):
-        self.color_handler(self, (0, 0, 0))
+    def color_black(self, button):
+        self.color_handler(button, (0, 0, 0))
 
     def show_msg(title, msg):
         tkinter.messagebox.showinfo(title, msg)
