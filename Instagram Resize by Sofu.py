@@ -130,10 +130,10 @@ class MyApp(Tk):
         self.button_white = Button(frame1, text='白', command=lambda: self.color_white(self.button_white), font=("Microsoft YaHei", 12),
                                    fg="#0a84ff", bg="#ffffff")
         self.button_white.grid(row=0, column=1, ipadx=8, padx=10)
-        self.button_grey = Button(frame1, text='灰', command=lambda: self.color_white(self.button_grey), font=("Microsoft YaHei", 12), fg="#ffffff",
+        self.button_grey = Button(frame1, text='灰', command=lambda: self.color_grey(self.button_grey), font=("Microsoft YaHei", 12), fg="#ffffff",
                                   bg="#0A84FF")
         self.button_grey.grid(row=0, column=2, ipadx=8, padx=10)
-        self.button_black = Button(frame1, text='黑', command=lambda: self.color_white(self.button_black), font=("Microsoft YaHei", 12),
+        self.button_black = Button(frame1, text='黑', command=lambda: self.color_black(self.button_black), font=("Microsoft YaHei", 12),
                                    fg="#ffffff", bg="#0A84FF")
         self.button_black.grid(row=0, column=3, ipadx=8, padx=10)
 
@@ -159,8 +159,10 @@ class MyApp(Tk):
         self.button_black.configure(fg="#ffffff", bg="#0a84ff")
 
     def color_handler(self, button, color):
+
         global padding_color
         padding_color = color
+        
         self.reset_button_color()
         button.configure(fg="#0a84ff", bg="#ffffff")
 
